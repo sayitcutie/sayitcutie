@@ -33,9 +33,17 @@ const now = Date.now();
 
   document.getElementById("msg").value = "";
   document.getElementById("status").innerText = "Sent anonymously 💗";
+  
 const heart = document.getElementById("heart");
 heart.style.display = "block";
 heart.style.animation = "pop 0.6s ease";
 setTimeout(() => {
   heart.style.display = "none";
 }, 800);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("sendBtn");
+  if (btn) {
+    btn.addEventListener("click", sendMsg);
+  }
+});
