@@ -1,3 +1,4 @@
+let lastSent = 0;
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -14,6 +15,13 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.sendMsg = async function () {
+const now = Date.now();
+  if (now - lastSent < 5000) {
+    document.getElementById("status").innerText = "Slow down, cutie 🫣";
+    return;
+  }
+  lastSent = now;
+  
   const msg = document.getElementById("msg").value.trim();
   if (!msg) return;
 
