@@ -24,4 +24,9 @@ window.sendMsg = async function () {
 
   document.getElementById("msg").value = "";
   document.getElementById("status").innerText = "Sent anonymously 💗";
-};
+const heart = document.getElementById("heart");
+heart.style.display = "block";
+heart.style.animation = "pop 0.6s ease";
+setTimeout(() => {
+  heart.style.display = "none";
+}, 800);
