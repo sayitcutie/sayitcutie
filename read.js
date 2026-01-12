@@ -33,13 +33,14 @@ onSnapshot(q, (snapshot) => {
     const data = doc.data();
 
     const div = document.createElement("div");
-    div.className = "msg";
-    div.innerHTML = `
-      ${data.text}
-      <div class="time">
-        ${data.createdAt?.toDate?.().toLocaleString() || ""}
-      </div>
-    `;
+div.className = "msg";
+
+div.innerHTML = `
+  <div class="msg-text">${data.text}</div>
+  <div class="time">
+    ${data.createdAt?.toDate?.().toLocaleString() || ""}
+  </div>
+`;
 
     list.appendChild(div);
   });
