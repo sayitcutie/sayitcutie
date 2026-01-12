@@ -8,7 +8,6 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
-  const firebaseConfig = {
   apiKey: "AIzaSyAIpdtOgSsv_PKJnA0kMk7fhqqD4yNaeZI",
   authDomain: "sayitcutie.firebaseapp.com",
   projectId: "sayitcutie",
