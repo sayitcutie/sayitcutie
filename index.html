@@ -18,6 +18,7 @@
       width: 90%;
       max-width: 400px;
       text-align: center;
+      position: relative;
     }
     textarea {
       width: 100%;
@@ -44,13 +45,13 @@
     100% { transform: scale(1); opacity: 0; }
   }
   #heart {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 40px;
+  #heart {
+  position: absolute;
+  top: 90px;        /* tweak this if needed */
+  right: 18px;
+  font-size: 34px;
   display: none;
-  z-index: 999;
+  z-index: 10;
   pointer-events: none;
 }
   </style>
