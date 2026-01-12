@@ -15,14 +15,14 @@ const db = getFirestore(app);
 
 let lastSent = 0;
 
-window.sendMsg = async function () {
-const now = Date.now();
+async function sendMsg() {
+  const now = Date.now();
   if (now - lastSent < 5000) {
     document.getElementById("status").innerText = "Slow down, cutie 🫣";
     return;
   }
   lastSent = now;
-  
+
   const msg = document.getElementById("msg").value.trim();
   if (!msg) return;
 
@@ -33,14 +33,16 @@ const now = Date.now();
 
   document.getElementById("msg").value = "";
   document.getElementById("status").innerText = "Sent anonymously 💗";
-  
-const heart = document.getElementById("heart");
-heart.style.display = "block";
-heart.style.animation = "pop 0.6s ease";
-setTimeout(() => {
-  heart.style.display = "none";
-}, 800);
 
+  const heart = document.getElementById("heart");
+  heart.style.display = "block";
+  heart.style.animation = "pop 0.6s ease";
+  setTimeout(() => {
+    heart.style.display = "none";
+  }, 800);
+} // ✅ THIS WAS MISSING
+
+// ✅ Event listener MUST be OUTSIDE the function
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("sendBtn");
   if (btn) {
