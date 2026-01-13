@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Say it, cutie 💌</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      width: 90%;
+      max-width: 380px;
+      text-align: center;
+      position: relative;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      padding: 12px;
+      border: none;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: #ff6fa5;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h2 id="title">Say it, cutie 🫣💗</h2>
+    <p id="subtitle"></p>
+
+    <textarea id="msg" placeholder="Type something anonymous..."></textarea>
+    <button id="sendBtn">Send 💌</button>
+
+    <div id="status"></div>
+  </div>
+
+  <script type="module" src="u.js"></script>
+</body>
+</html>
