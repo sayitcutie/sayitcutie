@@ -20,9 +20,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 /* 🧠 Extract username from URL */
-const path = window.location.pathname;
-const username = path.split("/u/")[1]?.toLowerCase();
-
+const params = new URLSearchParams(window.location.search);
+const username = params.get("user")?.toLowerCase();
 const title = document.getElementById("title");
 const subtitle = document.getElementById("subtitle");
 
