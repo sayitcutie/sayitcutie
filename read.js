@@ -1,10 +1,16 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
-  getFirestore,
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import {
   collection,
   query,
+  where,
   orderBy,
-  onSnapshot
+  onSnapshot,
+  doc,
+  getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -16,32 +22,41 @@ const firebaseConfig = {
   appId: "1:559001612992:web:593f8c9f41d1e9bfbe7325"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
+const auth = getAuth(app);
 const list = document.getElementById("messages");
 
-const q = query(
-  collection(db, "messages"),
-  orderBy("createdAt", "desc")
-);
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    document.body.innerHTML = "Please login 🔐";
+    return;
+  }
 
-onSnapshot(q, (snapshot) => {
-  list.innerHTML = "";
+  // 🔎 Get username of logged-in user
+  const userDoc = await getDoc(doc(db, "users", user.uid));
+  const username = userDoc.data().username;
 
-  snapshot.forEach(doc => {
-    const data = doc.data();
+  // 📥 Only THEIR messages
+  const q = query(
+    collection(db, "messages"),
+    where("to", "==", username),
+    orderBy("createdAt", "desc")
+  );
 
-    const div = document.createElement("div");
-div.className = "msg";
+  onSnapshot(q, (snapshot) => {
+    list.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
 
-div.innerHTML = `
-  <div class="msg-text">${data.text}</div>
-  <div class="time">
-    ${data.createdAt?.toDate?.().toLocaleString() || ""}
-  </div>
-`;
+      const div = document.createElement("div");
+      div.className = "msg";
+      div.innerHTML = `
+        <div class="msg-text">${data.text}</div>
+        <div class="time">
+          ${data.createdAt?.toDate().toLocaleString() || ""}
+        </div>
+      `;
 
-    list.appendChild(div);
+      list.appendChild(div);
+    });
   });
 });
