@@ -34,7 +34,24 @@ onAuthStateChanged(auth, async (user) => {
   // 🔎 Get username of logged-in user
   const userDoc = await getDoc(doc(db, "users", user.uid));
   const username = userDoc.data().username;
+// 🔗 Personal link copy logic
+const linkInput = document.getElementById("userLink");
+const copyBtn = document.getElementById("copyBtn");
+const copyStatus = document.getElementById("copyStatus");
 
+if (linkInput && copyBtn) {
+  const personalLink = `https://sayitcutie.github.io/sayitcutie/u/${username}`;
+  linkInput.value = personalLink;
+
+  copyBtn.onclick = async () => {
+    await navigator.clipboard.writeText(personalLink);
+    copyStatus.innerText = "Copied 💖";
+
+    setTimeout(() => {
+      copyStatus.innerText = "";
+    }, 1500);
+  };
+}
   // 📥 Only THEIR messages
   const q = query(
     collection(db, "messages"),
