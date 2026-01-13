@@ -75,7 +75,7 @@ window.signup = async function () {
 
     // 👉 Redirect to their inbox later
     setTimeout(() => {
-      window.location.href = `/u/${username}`;
+      window.location.href = `/sayitcutie/u.html?user=${username}`;
     }, 1200);
 
   } catch (err) {
