@@ -32,29 +32,26 @@ window.login = async function () {
     alert("Fill all fields 💌");
     return;
   }
+    try {
+  const userCred = await signInWithEmailAndPassword(auth, email, password);
+  const uid = userCred.user.uid;
 
-  try {
-    const userCred = await signInWithEmailAndPassword(auth, email, password);
-    const uid = userCred.user.uid;
+  // get user profile
+  const snap = await getDoc(doc(db, "users", uid));
 
-  // ✅ redirect to inbox after login
-  window.location.href = "/sayitcutie/read.html";
-  
-    // get username
-    const snap = await getDoc(doc(db, "users", uid));
-
-    if (!snap.exists()) {
-      alert("User profile missing 😢");
-      return;
-    }
-
-    const username = snap.data().username;
-
-    // redirect to personal page
-    window.location.href = `/sayitcutie/u/?user=${username}`;
-  } catch (err) {
-    alert(err.message);
+  if (!snap.exists()) {
+    alert("User profile missing 😢");
+    return;
   }
+
+  const username = snap.data().username;
+
+  // ✅ ONE redirect only (inbox)
+  window.location.href = "/sayitcutie/read.html";
+
+} catch (err) {
+  alert(err.message);
+}
 };
 
 /* 🔒 Auto-redirect if already logged in */
