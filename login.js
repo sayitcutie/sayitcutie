@@ -10,7 +10,6 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* 🔥 Firebase config (same as app.js) */
 const firebaseConfig = {
    apiKey: "AIzaSyAIpdtOgSsv_PKJnA0kMk7fhqqD4yNaeZI",
   authDomain: "sayitcutie.firebaseapp.com",
@@ -38,6 +37,9 @@ window.login = async function () {
     const userCred = await signInWithEmailAndPassword(auth, email, password);
     const uid = userCred.user.uid;
 
+  // ✅ redirect to inbox after login
+  window.location.href = "/sayitcutie/read.html";
+  
     // get username
     const snap = await getDoc(doc(db, "users", uid));
 
