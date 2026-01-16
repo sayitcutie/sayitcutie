@@ -53,14 +53,3 @@ window.login = async function () {
   alert(err.message);
 }
 };
-
-/* 🔒 Auto-redirect if already logged in */
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const snap = await getDoc(doc(db, "users", user.uid));
-    if (snap.exists()) {
-      const username = snap.data().username;
-      window.location.href = `/sayitcutie/u/?user=${username}`;    
-    }
-  }
-});
