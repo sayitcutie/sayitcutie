@@ -49,8 +49,7 @@ window.login = async function () {
     const username = snap.data().username;
 
     // redirect to personal page
-    window.location.href = `/sayitcutie/u/${username}`;
-
+    window.location.href = `/sayitcutie/u/?user=${username}`;
   } catch (err) {
     alert(err.message);
   }
@@ -62,7 +61,7 @@ onAuthStateChanged(auth, async (user) => {
     const snap = await getDoc(doc(db, "users", user.uid));
     if (snap.exists()) {
       const username = snap.data().username;
-      window.location.href = `/sayitcutie/u/${username}`;
+      window.location.href = `/sayitcutie/u/?user=${username}`;    
     }
   }
 });
