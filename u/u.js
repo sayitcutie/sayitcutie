@@ -20,18 +20,26 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 /* 🧠 Extract username from URL */
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* 🧠 Extract username from URL */
 const params = new URLSearchParams(window.location.search);
-const username = params.get("user")?.toLowerCase();
+const rawUser = params.get("user");
+
+const username = rawUser ? rawUser.trim().toLowerCase() : null;
+
 const title = document.getElementById("title");
 const subtitle = document.getElementById("subtitle");
+const sendBtn = document.getElementById("sendBtn");
 
 if (!username) {
   title.innerText = "Invalid link 😕";
-  document.getElementById("sendBtn").disabled = true;
+  subtitle.innerText = "This link looks broken";
+  if (sendBtn) sendBtn.disabled = true;
 } else {
   subtitle.innerText = `Send something anonymous to @${username}`;
 }
-
 /* 💌 Send message */
 document.getElementById("sendBtn").addEventListener("click", async () => {
   const msg = document.getElementById("msg").value.trim();
