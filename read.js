@@ -40,7 +40,7 @@ const copyBtn = document.getElementById("copyBtn");
 const copyStatus = document.getElementById("copyStatus");
 
 if (linkInput && copyBtn) {
-  const personalLink = `https://sayitcutie.github.io/sayitcutie/u.html?user=${username}`;
+const personalLink = `https://sayitcutie.github.io/sayitcutie/u/?user=${username}`;
   linkInput.value = personalLink;
 
   copyBtn.onclick = async () => {
