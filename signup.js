@@ -13,12 +13,12 @@ import {
 
 /* 🔥 Firebase config */
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+apiKey: "AIzaSyAIpdtOgSsv_PKJnA0kMk7fhqqD4yNaeZI",
   authDomain: "sayitcutie.firebaseapp.com",
   projectId: "sayitcutie",
-  storageBucket: "sayitcutie.appspot.com",
+  storageBucket: "sayitcutie.firebasestorage.app",
   messagingSenderId: "559001612992",
-  appId: "YOUR_APP_ID"
+  appId: "1:559001612992:web:593f8c9f41d1e9bfbe7325"
 };
 
 const app = initializeApp(firebaseConfig);
