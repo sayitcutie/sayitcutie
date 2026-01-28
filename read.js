@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyAIpdtOgSsv_PKJnA0kMk7fhqqD4yNaeZI",
@@ -15,40 +15,30 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// DOM (wait-safe)
-const linkInput = document.getElementById("userLink");
-const copyBtn = document.getElementById("copyBtn");
-const copyStatus = document.getElementById("copyStatus");
-
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    window.location.href = "/sayitcutie/login.html";
-    return;
-  }
+  if (!user) return;
 
-  try {
-    const snap = await getDoc(doc(db, "users", user.uid));
+  const snap = await getDoc(doc(db, "users", user.uid));
+  const username = snap.data().username;
 
-    if (!snap.exists()) {
-      alert("User profile missing");
-      return;
-    }
+  // 🔗 personal link
+  document.getElementById("userLink").value =
+    `https://sayitcutie.github.io/sayitcutie/u/?user=${username}`;
 
-    const username = snap.data().username;
+  // 🔥 listen to messages
+  const q = query(
+    collection(db, "messages", username, "items"),
+    orderBy("createdAt", "desc")
+  );
 
-    // ✅ THIS WAS THE MISSING LINE EARLIER
-    const personalLink =
-      `https://sayitcutie.github.io/sayitcutie/u/?user=${username}`;
+  onSnapshot(q, (snap) => {
+    const box = document.getElementById("messages");
+    box.innerHTML = "";
 
-    linkInput.value = personalLink;
-
-    copyBtn.onclick = async () => {
-      await navigator.clipboard.writeText(personalLink);
-      copyStatus.innerText = "Copied 💖";
-      setTimeout(() => (copyStatus.innerText = ""), 1500);
-    };
-
-  } catch (err) {
-    alert(err.message);
-  }
+    snap.forEach((doc) => {
+      const p = document.createElement("p");
+      p.textContent = doc.data().text;
+      box.appendChild(p);
+    });
+  });
 });
