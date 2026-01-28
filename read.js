@@ -3,7 +3,12 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  // 🔥 YOUR SAME FIREBASE CONFIG HERE
+apiKey: "AIzaSyAIpdtOgSsv_PKJnA0kMk7fhqqD4yNaeZI",
+  authDomain: "sayitcutie.firebaseapp.com",
+  projectId: "sayitcutie",
+  storageBucket: "sayitcutie.firebasestorage.app",
+  messagingSenderId: "559001612992",
+  appId: "1:559001612992:web:593f8c9f41d1e9bfbe7325"
 };
 
 const app = initializeApp(firebaseConfig);
