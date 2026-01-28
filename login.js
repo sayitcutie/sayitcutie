@@ -10,8 +10,9 @@ import {
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+/* 🔥 Firebase config */
 const firebaseConfig = {
-   apiKey: "AIzaSyAIpdtOgSsv_PKJnA0kMk7fhqqD4yNaeZI",
+apiKey: "AIzaSyAIpdtOgSsv_PKJnA0kMk7fhqqD4yNaeZI",
   authDomain: "sayitcutie.firebaseapp.com",
   projectId: "sayitcutie",
   storageBucket: "sayitcutie.firebasestorage.app",
@@ -23,36 +24,32 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* 🔑 Login function */
+/* 🔐 Login */
 window.login = async function () {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
   if (!email || !password) {
-    alert("Fill all fields 💌");
-    return;
-  }
-    try {
-  const userCred = await signInWithEmailAndPassword(auth, email, password);
-  const uid = userCred.user.uid;
-
-  // get user profile
-  const snap = await getDoc(doc(db, "users", uid));
-
-  if (!snap.exists()) {
-    alert("User profile missing 😢");
+    alert("Fill all fields ❤️");
     return;
   }
 
-  const username = snap.data().username;
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    const uid = cred.user.uid;
 
-  onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    window.location.href = "login.html";
+    const snap = await getDoc(doc(db, "users", uid));
+    if (!snap.exists()) {
+      alert("User profile missing 😢");
+      return;
+    }
+
+    // ✅ ONE redirect ONLY
+    window.location.href = "inbox.html";
+  } catch (err) {
+    alert(err.message);
   }
-});
-
-} catch (err) {
-  alert(err.message);
-}
 };
+
+/* 🚫 DO NOT AUTO-REDIRECT HERE */
+// onAuthStateChanged REMOVED ON PURPOSE
