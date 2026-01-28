@@ -47,7 +47,7 @@ window.login = async function () {
   const username = snap.data().username;
 
   // ✅ ONE redirect only (inbox)
-  window.location.href = "/sayitcutie/read.html";
+  window.location.href = "/sayitcutie/inbox.html";
 
 } catch (err) {
   alert(err.message);
