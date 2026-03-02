@@ -44,14 +44,17 @@ onAuthStateChanged(auth, async (user) => {
 const userLink = document.getElementById("userLink");
 const copyStatus = document.getElementById("copyStatus");
 
-if (copyBtn) {
-  copyBtn.onclick = () => {
-    navigator.clipboard.writeText(userLink.value);
-    copyStatus.innerText = "Copied 💕";
+copyBtn.onclick = () => {
 
-    setTimeout(() => {
-      copyStatus.innerText = "";
-    }, 2000);
-    });
-  });
-});
+  userLink.select();
+  userLink.setSelectionRange(0, 99999);
+
+  document.execCommand("copy");
+
+  copyStatus.innerText = "Copied 💕";
+
+  setTimeout(() => {
+    copyStatus.innerText = "";
+  }, 2000);
+
+};
