@@ -39,6 +39,19 @@ onAuthStateChanged(auth, async (user) => {
       const p = document.createElement("p");
       p.textContent = doc.data().text;
       box.appendChild(p);
+      
+    const copyBtn = document.getElementById("copyBtn");
+const userLink = document.getElementById("userLink");
+const copyStatus = document.getElementById("copyStatus");
+
+if (copyBtn) {
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(userLink.value);
+    copyStatus.innerText = "Copied 💕";
+
+    setTimeout(() => {
+      copyStatus.innerText = "";
+    }, 2000);
     });
   });
 });
