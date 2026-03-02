@@ -21,8 +21,7 @@ return;
 
 }
 
-document.getElementById("userEmail").innerText="Logged in as "+user.email;
-
+document.getElementById("userEmail").innerText="Logged in as @" + username;
 const snap = await getDoc(doc(db,"users",user.uid));
 
 const username = snap.data().username;
