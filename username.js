@@ -23,6 +23,6 @@ email: user.email
 
 });
 
-window.location.href="dashboard.html";
+window.location.href="/sayitcutie/dashboard.html";
 
 };
