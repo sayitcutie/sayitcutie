@@ -23,15 +23,14 @@ serverTimestamp
 
 
 const firebaseConfig = {
-
-apiKey: "YOURKEY",
-authDomain: "YOURPROJECT.firebaseapp.com",
-projectId: "YOURPROJECT",
-storageBucket: "YOURPROJECT.appspot.com",
-messagingSenderId: "XXXXX",
-appId: "XXXXX"
-
+  apiKey: "AIzaSyAIpdtOgSsv_PKJnA0kMk7fhqqD4yNaeZI",
+  authDomain: "sayitcutie.firebaseapp.com",
+  projectId: "sayitcutie",
+  storageBucket: "sayitcutie.firebasestorage.app",
+  messagingSenderId: "559001612992",
+  appId: "1:559001612992:web:593f8c9f41d1e9bfbe7325"
 };
+
 
 const app = initializeApp(firebaseConfig);
 
