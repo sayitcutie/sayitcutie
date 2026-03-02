@@ -43,11 +43,19 @@ const box = document.getElementById("messages");
 
 box.innerHTML="";
 
+if(snapshot.empty){
+
+document.getElementById("messages").innerHTML =
+"<p style='opacity:.6'>No messages yet 💌</p>";
+
+return;
+
+}
+
 snapshot.forEach((doc)=>{
 
 const msg = doc.data();
 
-const div = document.createElement("div");
 const div = document.createElement("div");
 div.className = "message";
 
