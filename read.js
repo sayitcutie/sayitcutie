@@ -41,20 +41,21 @@ onAuthStateChanged(auth, async (user) => {
       box.appendChild(p);
       
     const copyBtn = document.getElementById("copyBtn");
-const userLink = document.getElementById("userLink");
-const copyStatus = document.getElementById("copyStatus");
 
-copyBtn.onclick = () => {
+copyBtn.addEventListener("click", function () {
 
-  userLink.select();
-  userLink.setSelectionRange(0, 99999);
+  const input = document.getElementById("userLink");
+
+  input.select();
+  input.setSelectionRange(0, 99999);
 
   document.execCommand("copy");
 
-  copyStatus.innerText = "Copied 💕";
+  document.getElementById("copyStatus").innerText = "Copied 💕";
 
   setTimeout(() => {
-    copyStatus.innerText = "";
+    document.getElementById("copyStatus").innerText = "";
   }, 2000);
 
+});
 };
