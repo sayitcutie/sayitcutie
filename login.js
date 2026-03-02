@@ -1,90 +1,49 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-<title>Login</title>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "sayitcutie.firebaseapp.com",
+  projectId: "sayitcutie",
+  storageBucket: "sayitcutie.appspot.com",
+  messagingSenderId: "559001612992",
+  appId: "1:559001612992:web:593f8c9f41d1e9bf"
+};
 
-<style>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-body{
-font-family: Arial;
-background:#f6e3e8;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-}
+window.login = async function () {
 
-.card{
-background:white;
-padding:40px;
-border-radius:20px;
-width:320px;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
-text-align:center;
-}
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-h2{
-color:#ff4f87;
-margin-bottom:30px;
-}
+  if (!email || !password) {
+    alert("Fill all fields ❤️");
+    return;
+  }
 
-input{
-width:100%;
-padding:15px;
-margin-bottom:15px;
-border-radius:10px;
-border:1px solid #ddd;
-font-size:16px;
-}
+  try {
 
-button{
-width:100%;
-padding:15px;
-background:#ff4f87;
-border:none;
-border-radius:12px;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
+    const userCred = await signInWithEmailAndPassword(auth, email, password);
+    const uid = userCred.user.uid;
 
-button:hover{
-opacity:0.9;
-}
+    const snap = await getDoc(doc(db, "users", uid));
 
-.link{
-margin-top:15px;
-font-size:14px;
-}
+    if (!snap.exists()) {
+      alert("User profile missing 😢");
+      return;
+    }
 
-.link a{
-color:#ff4f87;
-text-decoration:none;
-font-weight:bold;
-}
+    const username = snap.data().username;
 
-</style>
-</head>
+    // redirect to inbox
+    window.location.href = "/sayitcutie/inbox.html";
 
-<body>
+  } catch (err) {
+    alert(err.message);
+  }
 
-<div class="card">
-
-<h2>Login 💗</h2>
-
-<input type="email" placeholder="Email">
-<input type="password" placeholder="Password">
-
-<button>Login</button>
-
-<div class="link">
-New here? <a href="signup.html">Create an account</a>
-</div>
-
-</div>
-
-</body>
-</html>
+};
