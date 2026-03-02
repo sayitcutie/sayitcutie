@@ -17,7 +17,7 @@ try{
 
 await createUserWithEmailAndPassword(auth,email,password);
 
-window.location.href="username.html";
+window.location.href="/sayitcutie/username.html";
 
 }catch(err){
 
