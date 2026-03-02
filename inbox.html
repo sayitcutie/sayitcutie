@@ -1,104 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Inbox 💌</title>
-  <style>
-    body {
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-.msg {
-  background: linear-gradient(145deg, #121212, #1b1b1b);
-  padding: 16px 18px;
-  border-radius: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.45);
-  animation: popIn 1.35s ease;
-}
-.msg:first-child {
-  box-shadow: 0 0 12px rgba(255, 105, 180, 0.25);
-}
-.msg-text {
-  font-size: 16px;
-  line-height: 1.5;
-  letter-spacing: 0.2px;
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Inbox</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f6e3e8;
+margin:0;
 }
 
-.time {
-  font-size: 11px;
-  opacity: 0.45;
-  margin-top: 8px;
-  text-align: right;
-}
-#linkBox {
-  background: #111;
-  padding: 14px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  text-align: center;
+header{
+background:#ff4f87;
+color:white;
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-#linkBox p {
-  margin-bottom: 8px;
-  opacity: 0.9;
+.container{
+padding:20px;
 }
 
-#userLink {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  background: #000;
-  color: #ff6fa5;
-  text-align: center;
-  margin-bottom: 10px;
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
 }
 
-#copyBtn {
-  background: #ff6fa5;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
+input{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #ddd;
+margin:10px 0;
 }
 
-#copyStatus {
-  display: block;
-  margin-top: 6px;
-  font-size: 13px;
-  opacity: 0.7;
+button{
+background:#ff4f87;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+border-radius:10px;
+cursor:pointer;
 }
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  </style>
+
+.message{
+background:#f3e2e7;
+padding:15px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+</style>
+
 </head>
+
 <body>
 
-  <h2>Inbox 💌</h2>
-<div id="linkBox">
-  <p>Your personal link 💗</p>
-  <input id="userLink" readonly />
-  <button id="copyBtn">Copy 💌</button>
-  <span id="copyStatus"></span>
-</div>
- <div id="messages"></div>
+<header>
+<div>Your Feedbacks 💌</div>
+<div>Logout</div>
+</header>
 
-<script type="module" src="read.js"></script>
+<div class="container">
+
+<div class="card">
+
+<h3>Your feedback link</h3>
+
+<input value="https://sayitcutie.github.io/send.html" readonly>
+
+<button>Copy link</button>
+
+</div>
+
+
+<div class="card">
+
+<h3>Messages</h3>
+
+<div class="message">Hello</div>
+<div class="message">Hey u</div>
+<div class="message">Hola</div>
+
+</div>
+
+</div>
+
 </body>
 </html>
