@@ -65,11 +65,6 @@ box.appendChild(div);
 
 });
 
-});
-
-});
-
-
 window.copyLink = ()=>{
 
 const link = document.getElementById("link");
@@ -80,4 +75,22 @@ document.execCommand("copy");
 
 alert("Copied 💗");
 
+window.shareLink = async () => {
+
+const link = document.getElementById("link").value;
+
+if(navigator.share){
+
+await navigator.share({
+title:"Send me anonymous feedback 💌",
+url:link
+});
+
+}else{
+
+alert("Share not supported");
+
+}
+
+}
 };
