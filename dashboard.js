@@ -48,11 +48,8 @@ snapshot.forEach((doc)=>{
 const msg = doc.data();
 
 const div = document.createElement("div");
-
-div.style.background="#f4e3e7";
-div.style.padding="10px";
-div.style.borderRadius="10px";
-div.style.marginBottom="10px";
+const div = document.createElement("div");
+div.className = "message";
 
 const time = msg.createdAt?.toDate().toLocaleString() || "";
 
