@@ -1,55 +1,42 @@
-import { auth } from "./firebase.js";
-import { db } from "./firebase.js";
-
-import { 
-  doc,
-  getDoc,
+import { auth, db } from "./firebase.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
   collection,
   query,
   orderBy,
   onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-import { signOut } from 
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-
-// 🔐 Check login
-auth.onAuthStateChanged(async (user) => {
-
+auth.onAuthStateChanged((user) => {
   if (!user) {
     window.location.href = "login.html";
     return;
   }
 
-  // Get username
-  const snap = await getDoc(doc(db, "users", user.uid));
-
-  if (!snap.exists()) {
-    window.location.href = "username.html";
-    return;
-  }
-
-  const username = snap.data().username;
-
-  // Show welcome
+  // Welcome text
   document.getElementById("welcome").innerText =
     "Logged in as " + user.email;
 
-  // Create public link
-  const link =
-    "https://sayitcutie.github.io/sayitcutie/u/" + username;
+  // Feedback link
+  const username = user.email.split("@")[0];
+  const link = window.location.origin + "/sayitcutie/u/" + username;
 
-  document.getElementById("link").value = link;
+  const linkInput = document.getElementById("link");
+  linkInput.value = link;
 
-  // 🔥 Load messages live
+  // Copy button
+  document.getElementById("copyBtn").onclick = () => {
+    navigator.clipboard.writeText(link);
+    alert("Link copied 💕");
+  };
+
+  // Load messages
   const q = query(
     collection(db, "messages", user.uid, "items"),
     orderBy("createdAt", "desc")
   );
 
   onSnapshot(q, (snapshot) => {
-
     const box = document.getElementById("messages");
     box.innerHTML = "";
 
@@ -63,40 +50,15 @@ auth.onAuthStateChanged(async (user) => {
       const msg = doc.data();
 
       const div = document.createElement("div");
-      div.className = "message";
-
-      const time = msg.createdAt?.toDate().toLocaleString() || "";
-
-      div.innerHTML = `
-        <div>${msg.text}</div>
-        <small style="opacity:.6">${time}</small>
-      `;
+      div.className = "card small";
+      div.innerText = msg.text;
 
       box.appendChild(div);
     });
-
   });
-
 });
 
-
-// 📋 Copy link
-document.getElementById("copyBtn")
-  .addEventListener("click", () => {
-
-    const input = document.getElementById("link");
-    input.select();
-    document.execCommand("copy");
-
-    alert("Copied 💖");
-});
-
-
-// 🚪 Logout
-document.getElementById("logoutBtn")
-  .addEventListener("click", async () => {
-
-    await signOut(auth);
-    window.location.href = "login.html";
-
-});
+// Logout
+document.getElementById("logoutBtn").onclick = () => {
+  signOut(auth);
+};
