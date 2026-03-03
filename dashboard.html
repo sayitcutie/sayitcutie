@@ -1,35 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="style.css">
-
-<title>Inbox</title>
-
-</head>
-
 <body>
 
-<div class="card">
+<header class="topbar">
+  <h2>Your Feedbacks 💌</h2>
+  <button id="logoutBtn" class="logout">Logout</button>
+</header>
 
-<h1>Your Feedbacks 💌</h1>
+<div class="container">
 
-<p id="userEmail"></p>
+  <div class="card small">
+    <p id="welcome"></p>
+  </div>
 
-<input id="link" readonly>
+  <div class="card">
+    <h3>Your feedback link</h3>
+    <div class="linkRow">
+      <input id="link" readonly />
+      <button id="copyBtn">Copy link</button>
+    </div>
+  </div>
 
-<button onclick="copyLink()">Copy link</button>
-<button onclick="shareLink()">Share 🔗</button>
-
-<h3>Messages</h3>
-
-<div id="messages"></div>
+  <div class="card">
+    <h3>Messages</h3>
+    <div id="messages"></div>
+  </div>
 
 </div>
 
-<script src="dashboard.js"></script>
-
+<script type="module" src="dashboard.js"></script>
 </body>
-</html>
