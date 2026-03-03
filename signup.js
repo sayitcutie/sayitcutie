@@ -1,28 +1,27 @@
-import {
-auth,
-createUserWithEmailAndPassword
-} from "./firebase.js";
+import { auth } from "./firebase.js";
+import { createUserWithEmailAndPassword } from 
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-window.signup = async () => {
+const btn = document.getElementById("signupBtn");
 
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
+btn.addEventListener("click", async () => {
 
-if(!email || !password){
-alert("Fill all fields");
-return;
-}
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-try{
+  if (!email || !password) {
+    alert("Fill all fields");
+    return;
+  }
 
-await createUserWithEmailAndPassword(auth,email,password);
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
 
-window.location.href="username.html";
+    // redirect
+    window.location.href = "username.html";
 
-}catch(err){
+  } catch (err) {
+    alert(err.message);
+  }
 
-alert(err.message);
-
-}
-
-};
+});
