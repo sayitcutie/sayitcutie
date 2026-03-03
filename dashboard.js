@@ -19,7 +19,10 @@ auth.onAuthStateChanged((user) => {
 
   // Feedback link
   const username = user.email.split("@")[0];
-  const link = window.location.origin + "/sayitcutie/u/" + username;
+  const link =
+  window.location.origin +
+  "/sayitcutie/feedback.html?user=" +
+  username;
 
   const linkInput = document.getElementById("link");
   linkInput.value = link;
