@@ -17,7 +17,7 @@ try{
 
 await signInWithEmailAndPassword(auth,email,password);
 
-window.location.href="/sayitcutie/dashboard.html";
+window.location.href="dashboard.html";
 
 }catch(err){
 
