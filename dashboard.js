@@ -1,101 +1,102 @@
-import {
-auth,
-db,
-doc,
-getDoc,
-collection,
-query,
-orderBy,
-onSnapshot
-} from "./firebase.js";
+import { auth } from "./firebase.js";
+import { db } from "./firebase.js";
 
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { 
+  doc,
+  getDoc,
+  collection,
+  query,
+  orderBy,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-
-onAuthStateChanged(auth, async (user)=>{
-
-if(!user){
-
-window.location.href="login.html";
-return;
-
-}
-
-document.getElementById("userEmail").innerText="Logged in as @" + username;
-const snap = await getDoc(doc(db,"users",user.uid));
-
-const username = snap.data().username;
-
-const link = "https://sayitcutie.github.io/?uid="+user.uid;
-
-document.getElementById("link").value = link;
+import { signOut } from 
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
-const q = query(
-collection(db,"messages",user.uid,"items"),
-orderBy("createdAt","desc")
-);
+// 🔐 Check login
+auth.onAuthStateChanged(async (user) => {
 
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
 
-onSnapshot(q,(snapshot)=>{
+  // Get username
+  const snap = await getDoc(doc(db, "users", user.uid));
 
-const box = document.getElementById("messages");
+  if (!snap.exists()) {
+    window.location.href = "username.html";
+    return;
+  }
 
-box.innerHTML="";
+  const username = snap.data().username;
 
-if(snapshot.empty){
+  // Show welcome
+  document.getElementById("welcome").innerText =
+    "Logged in as " + user.email;
 
-document.getElementById("messages").innerHTML =
-"<p style='opacity:.6'>No messages yet 💌</p>";
+  // Create public link
+  const link =
+    "https://sayitcutie.github.io/sayitcutie/u/" + username;
 
-return;
+  document.getElementById("link").value = link;
 
-}
+  // 🔥 Load messages live
+  const q = query(
+    collection(db, "messages", user.uid, "items"),
+    orderBy("createdAt", "desc")
+  );
 
-snapshot.forEach((doc)=>{
+  onSnapshot(q, (snapshot) => {
 
-const msg = doc.data();
+    const box = document.getElementById("messages");
+    box.innerHTML = "";
 
-const div = document.createElement("div");
-div.className = "message";
+    if (snapshot.empty) {
+      box.innerHTML =
+        "<p style='opacity:.6'>No messages yet 💌</p>";
+      return;
+    }
 
-const time = msg.createdAt?.toDate().toLocaleString() || "";
+    snapshot.forEach((doc) => {
+      const msg = doc.data();
 
-div.innerHTML = `
-<div>${msg.text}</div>
-<small style="opacity:.6">${time}</small>
-`;
+      const div = document.createElement("div");
+      div.className = "message";
 
-box.appendChild(div);
+      const time = msg.createdAt?.toDate().toLocaleString() || "";
+
+      div.innerHTML = `
+        <div>${msg.text}</div>
+        <small style="opacity:.6">${time}</small>
+      `;
+
+      box.appendChild(div);
+    });
+
+  });
 
 });
 
-window.copyLink = ()=>{
 
-const link = document.getElementById("link");
+// 📋 Copy link
+document.getElementById("copyBtn")
+  .addEventListener("click", () => {
 
-link.select();
+    const input = document.getElementById("link");
+    input.select();
+    document.execCommand("copy");
 
-document.execCommand("copy");
-
-alert("Copied 💗");
-
-window.shareLink = async () => {
-
-const link = document.getElementById("link").value;
-
-if(navigator.share){
-
-await navigator.share({
-title:"Send me anonymous feedback 💌",
-url:link
+    alert("Copied 💖");
 });
 
-}else{
 
-alert("Share not supported");
+// 🚪 Logout
+document.getElementById("logoutBtn")
+  .addEventListener("click", async () => {
 
-}
+    await signOut(auth);
+    window.location.href = "login.html";
 
-}
-};
+});
