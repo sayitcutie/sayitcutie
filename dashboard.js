@@ -21,7 +21,7 @@ auth.onAuthStateChanged((user) => {
   const username = user.email.split("@")[0];
   const link =
   window.location.origin +
-  "/sayitcutie/feedback.html?user=" +
+  "/sayitcutie/public.html?user=" +
   username;
 
   const linkInput = document.getElementById("link");
