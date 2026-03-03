@@ -8,33 +8,33 @@
 
 <body>
 
-<header class="topbar">
-  <h2>Your Feedbacks 💌</h2>
-  <button id="logoutBtn" class="logout">Logout</button>
-</header>
+<div class="page">
 
-<div class="container">
+  <div class="card main">
 
-  <div class="card small">
-    <p id="welcome"></p>
-  </div>
+    <h1>Your Feedbacks 💌</h1>
 
-  <div class="card">
-    <h3>Your feedback link</h3>
-    <div class="linkRow">
-      <input id="link" readonly />
-      <button id="copyBtn">Copy link</button>
+    <p id="welcome" class="muted"></p>
+
+    <div class="section">
+      <h3>Your feedback link</h3>
+      <div class="linkRow">
+        <input id="link" readonly />
+        <button id="copyBtn" class="primary">Copy</button>
+      </div>
     </div>
-  </div>
 
-  <div class="card">
-    <h3>Messages</h3>
-    <div id="messages"></div>
+    <div class="section">
+      <h3>Messages</h3>
+      <div id="messages"></div>
+    </div>
+
+    <button id="logoutBtn" class="ghost">Logout</button>
+
   </div>
 
 </div>
 
 <script type="module" src="dashboard.js"></script>
-
 </body>
 </html>
