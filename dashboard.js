@@ -16,7 +16,7 @@ onAuthStateChanged(auth, async (user)=>{
 
 if(!user){
 
-window.location.href="/sayitcutie/login.html";
+window.location.href="login.html";
 return;
 
 }
