@@ -67,3 +67,68 @@ body {
   border-radius: 14px;
   margin-bottom: 10px;
 }
+.page {
+  display: flex;
+  justify-content: center;
+  padding: 30px 16px;
+}
+
+.card.main {
+  width: 100%;
+  max-width: 420px;
+  background: #f6f1f2;
+  padding: 24px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 26px;
+}
+
+.muted {
+  opacity: 0.6;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.linkRow {
+  display: flex;
+  gap: 10px;
+}
+
+.linkRow input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.primary {
+  background: linear-gradient(90deg,#ff5c8a,#ff4f7a);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+.ghost {
+  margin-top: 10px;
+  background: transparent;
+  border: none;
+  color: #ff4f7a;
+  font-weight: bold;
+}
+
+#messages .card {
+  background: #ece6e7;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
