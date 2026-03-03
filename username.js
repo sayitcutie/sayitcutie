@@ -1,28 +1,37 @@
-import {
-auth,
-db,
-doc,
-setDoc
-} from "./firebase.js";
+import { auth } from "./firebase.js";
+import { getFirestore, doc, setDoc } from 
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-window.saveUsername = async () => {
+import { db } from "./firebase.js";
 
-const username = document.getElementById("username").value.toLowerCase();
+const btn = document.getElementById("saveUsernameBtn");
 
-const user = auth.currentUser;
+btn.addEventListener("click", async () => {
 
-if(!user){
-alert("Login first");
-return;
-}
+  const username = document.querySelector("input").value.trim();
 
-await setDoc(doc(db,"users",user.uid),{
+  if (!username) {
+    alert("Enter username");
+    return;
+  }
 
-username: username,
-email: user.email
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Not logged in");
+    return;
+  }
+
+  try {
+    await setDoc(doc(db, "users", user.uid), {
+      username: username,
+      email: user.email
+    });
+
+    window.location.href = "dashboard.html";
+
+  } catch (err) {
+    alert(err.message);
+  }
 
 });
-
-window.location.href="dashboard.html";
-
-};
