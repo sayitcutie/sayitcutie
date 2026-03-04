@@ -44,8 +44,8 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
   }
 
   const userDoc = snapshot.docs[0];
-  const userId = userDoc.id;
-
+  const userId = userDoc.data().uid;
+  
   await addDoc(collection(db, "messages", userId, "items"), {
     text,
     createdAt: serverTimestamp()
