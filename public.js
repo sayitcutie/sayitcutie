@@ -32,7 +32,7 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
 
   // Find user by username
   const q = query(
-    collection(db, "users"),
+    collection(db, "username"),
     where("username", "==", username)
   );
 
