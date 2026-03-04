@@ -31,20 +31,16 @@ document.getElementById("sendBtn").addEventListener("click", async () => {
   }
 
   // Find user by username
-  const q = query(
-    collection(db, "username"),
-    where("username", "==", username)
-  );
+  import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  const snapshot = await getDocs(q);
+const usernameDoc = await getDoc(doc(db, "usernames", username));
 
-  if (snapshot.empty) {
-    alert("User not found");
-    return;
-  }
+if (!usernameDoc.exists()) {
+  alert("User not found");
+  return;
+}
 
-  const userDoc = snapshot.docs[0];
-  const userId = userDoc.data().uid;
+const userId = usernameDoc.data().uid;
   
   await addDoc(collection(db, "messages", userId, "items"), {
     text,
