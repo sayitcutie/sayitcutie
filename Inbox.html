@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Her Dashboard 💗</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #ffe4ec, #ffd6e0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.container {
+  background: #fff0f5;
+  padding: 25px;
+  border-radius: 20px;
+  width: 320px;
+  text-align: center;
+}
+.bar {
+  background: #ffd1dc;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 18px;
+  margin: 8px 0;
+}
+.fill {
+  height: 100%;
+  background: #ff8fab;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h2>💗 Her Dashboard</h2>
+
+  <div id="bars"></div>
+
+  <h3>Overall 💖</h3>
+  <div class="bar"><div id="overallBar" class="fill"></div></div>
+  <p id="overallText"></p>
+
+  <div id="adminPanel" style="display:none;"></div>
+</div>
+
+<script>
+// 🔥 PASTE YOUR FIREBASE CONFIG HERE
+
+g// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCsv34rRwtD35qcTl8RMeBwFF5F_azkMg8",
+  authDomain: "rating-bar-24a81.firebaseapp.com",
+  projectId: "rating-bar-24a81",
+  storageBucket: "rating-bar-24a81.firebasestorage.app",
+  messagingSenderId: "1017485664370",
+  appId: "1:1017485664370:web:a0b43f4426238a61ce22eb"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// INIT
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ADMIN CHECK
+const params = new URLSearchParams(window.location.search);
+const isAdmin = params.get("key") === "hersecret123";
+
+// LABELS
+const labels = {
+  trust: "Trust 🤍",
+  mood: "Mood 😊",
+  love: "Love 💕",
+  angry: "Angry 😤",
+  miss: "Miss 🥺",
+  freaky: "Freaky 😏"
+};
+
+// LISTEN REALTIME 🔥
+db.ref("bars").on("value", (snapshot) => {
+  const data = snapshot.val();
+  render(data);
+});
+
+function render(data) {
+  const barsDiv = document.getElementById("bars");
+  const adminDiv = document.getElementById("adminPanel");
+
+  barsDiv.innerHTML = "";
+  adminDiv.innerHTML = "";
+
+  let total = 0, count = 0;
+
+  for (let key in data) {
+    total += data[key];
+    count++;
+
+    barsDiv.innerHTML += `
+      <div>${labels[key]} (${data[key]}%)</div>
+      <div class="bar"><div class="fill" style="width:${data[key]}%"></div></div>
+    `;
+
+    if (isAdmin) {
+      adminDiv.innerHTML += `
+        <input type="number" id="${key}" value="${data[key]}" min="0" max="100">
+      `;
+    }
+  }
+
+  let overall = Math.round(total / count);
+  document.getElementById("overallBar").style.width = overall + "%";
+  document.getElementById("overallText").innerText = overall + "%";
+
+  if (isAdmin) {
+    adminDiv.innerHTML += `<button onclick="update()">Update 💗</button>`;
+    adminDiv.style.display = "block";
+  }
+}
+
+// UPDATE DATA
+function update() {
+  let updates = {};
+  for (let key in labels) {
+    let val = document.getElementById(key).value;
+    if (val >= 0 && val <= 100) {
+      updates[key] = Number(val);
+    }
+  }
+  db.ref("bars").set(updates);
+}
+</script>
+</body>
+</html>
